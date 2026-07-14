@@ -1,0 +1,20 @@
+import { EnvironmentConfig } from "../models/EnvironmentConfig";
+import { ConfigurationLoader } from "./ConfigurationLoader";
+
+export class ConfigManager {
+    private readonly config: EnvironmentConfig;
+    constructor(private readonly loader: ConfigurationLoader) {
+        const environment = process.env.ENV ?? "qa";
+        this.config = this.loader.load(environment);
+    }
+
+    public getBaseURL(): string {
+        return this.config.baseUrl;
+    }
+    public getApiBaseUrl(): string {
+        return this.config.apiBaseUrl;
+    }
+    public getBrowser(): string {
+        return this.config.browser;
+    }
+}
