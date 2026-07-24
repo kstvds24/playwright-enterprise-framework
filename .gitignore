@@ -1,0 +1,31 @@
+# Node dependencies
+node_modules/
+
+# Playwright reports
+playwright-report/
+test-results/
+blob-report/
+
+# Playwright authentication
+playwright/auth/*.json
+
+# Coverage
+coverage/
+
+# Environment files
+.env
+.env.*
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build output
+dist/
