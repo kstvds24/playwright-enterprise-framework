@@ -1,0 +1,13 @@
+name: Playwright CI
+
+on:
+  push:
+    branches:
+      - feature/**
+      - develop
+      - main
+
+  pull_request:
+    branches:
+      - develop
+      - main
