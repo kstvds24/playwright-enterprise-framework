@@ -14,7 +14,8 @@ export class ConfigManager {
     public getApiBaseUrl(): string {
         return this.config.apiBaseUrl;
     }
-    public getBrowser(): string {
-        return this.config.browser;
-    }
+    public getReqResApiKey(): string {
+    return this.config.reResApiKey;
+}
+
 }

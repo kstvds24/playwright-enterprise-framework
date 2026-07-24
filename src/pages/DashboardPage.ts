@@ -1,5 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
-import { BasePage } from "./BasePage";
+import { BasePage } from "../../base/BasePage";
 
 export class DashboardPage extends BasePage {
     private readonly dashboardHeading: Locator;
@@ -12,7 +12,7 @@ export class DashboardPage extends BasePage {
     }
     public async verifyDashboardLoaded(): Promise<void> {
 
-    await expect(this.dashboardHeading).toBeVisible();
+    await this.waits.waitForVisible(this.dashboardHeading);
 
 }
 

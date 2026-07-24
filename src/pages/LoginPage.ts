@@ -1,8 +1,8 @@
 import { expect, Locator, Page } from "@playwright/test";
-import { BasePage } from "./BasePage";
+import { BasePage } from "../../base/BasePage";
 import { configManager } from "../core/Bootstrap";
 import { DashboardPage } from "./DashboardPage";
-import { User } from "../models/LoginUser";
+import { LoginUser  } from "../models/LoginUser";
 
 export class LoginPage extends BasePage
 {
@@ -21,14 +21,18 @@ public async navigate(){
     await this.page.goto(configManager.getBaseURL())
 }
 public async login(
-    user: User
+    user: LoginUser 
 ): Promise<DashboardPage> {
 
-    await this.usernameInput.fill(user.username);
+    await this.actions.fill(this.usernameInput,user.username)
 
-    await this.passwordInput.fill(user.password);
+    await this.actions.fill(this.passwordInput,user.password)
 
-    await this.loginButton.click();
+    await Promise.all([
+    this.page.waitForURL(/dashboard/),
+    await this.actions.click(this.loginButton)
+]);
+
 
     return new DashboardPage(this.page);
 
