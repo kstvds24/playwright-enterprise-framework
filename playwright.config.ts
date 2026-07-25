@@ -32,7 +32,7 @@ export default defineConfig({
 
         navigationTimeout: 60000,
 
-        headless: false,
+        headless: isCI,
 
         storageState: "playwright/auth/user.json",
 
