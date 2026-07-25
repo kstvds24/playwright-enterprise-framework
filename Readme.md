@@ -2,6 +2,8 @@
 
 An enterprise-grade UI and API automation framework built using Playwright and TypeScript. The framework follows industry-standard design principles, emphasizing scalability, maintainability, and reusable components.
 
+![Playwright CI](https://github.com/kstvds24/playwright-enterprise-framework/actions/workflows/playwright.yml/badge.svg)
+
 ![Playwright](https://img.shields.io/badge/Playwright-2EAD33?logo=playwright&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
 ![NodeJS](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
