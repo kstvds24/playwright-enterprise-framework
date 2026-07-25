@@ -6,12 +6,12 @@ import { LoggerService } from "./src/services/LoggerService";
 const STORAGE_STATE_PATH = "playwright/auth/user.json";
 const logger = new LoggerService();
 const admin = userRepository.getAdmin();
-
+const isCI = !!process.env.CI;
 async function globalSetup() {
     logger.info("Starting global setup...");
     logger.info("Launching browser...");
     const browser = await chromium.launch({
-        headless: false
+        headless: isCI
     });
     
     const context = await browser.newContext();

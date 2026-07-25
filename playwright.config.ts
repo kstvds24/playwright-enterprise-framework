@@ -1,6 +1,7 @@
 import { defineConfig } from "@playwright/test";
 import { configManager } from "./src/core/Bootstrap";
 
+const isCI = !!process.env.CI;
 export default defineConfig({
 
     testDir: "./tests",
@@ -15,9 +16,9 @@ export default defineConfig({
 
     forbidOnly: !!process.env.CI,
 
-    retries: process.env.CI ? 2 : 0,
+    retries: isCI ? 2 : 0,
 
-    workers: process.env.CI ? 2 : undefined,
+    workers: isCI ? 2 : undefined,
 
     globalSetup: require.resolve("./global.setup"),
 
