@@ -1,7 +1,5 @@
 # Playwright Enterprise Framework
 
-[Badges]
-
 An enterprise-grade UI and API automation framework built using Playwright and TypeScript. The framework follows industry-standard design principles, emphasizing scalability, maintainability, and reusable components.
 
 ![Playwright](https://img.shields.io/badge/Playwright-2EAD33?logo=playwright&logoColor=white)
@@ -12,19 +10,33 @@ An enterprise-grade UI and API automation framework built using Playwright and T
 
 This project is an enterprise-grade UI and API automation framework built using Playwright and TypeScript. It follows scalable design principles such as the Page Object Model, reusable services, centralized configuration management, and a generic API client to support maintainable and extensible test automation.
 
+## Project Goals
+
+- Build a scalable enterprise automation framework.
+- Demonstrate clean architecture and SOLID design principles.
+- Support both UI and API automation within a single framework.
+- Showcase industry best practices for Playwright and TypeScript.
+
 ## Features
-- ✅ UI Automation
-- ✅ API Automation
-- ✅ Page Object Model
+
+### UI Automation
+- ✅ Page Object Model (POM)
 - ✅ Page Manager
-- ✅ API Manager
+- ✅ Reusable Base Page
+- ✅ Custom Fixtures
+
+### API Automation
 - ✅ Generic API Client
+- ✅ API Manager
 - ✅ CRUD Operations
+- ✅ Typed Request & Response Models
+
+### Framework
 - ✅ Configuration Management
-- ✅ Logging
 - ✅ Global Setup
 - ✅ Authentication
-- ✅ Fixtures
+- ✅ Logging
+- ✅ HTML Reports
 
 ## Tech Stack
 | Technology     | Purpose              |
@@ -35,42 +47,22 @@ This project is an enterprise-grade UI and API automation framework built using 
 | GitHub Actions | CI/CD                |
 | REST API       | API Testing          |
 
-## Folder Structure
+## Project Structure
 
-```text
-src
-├── api
-├── pages
-├── fixtures
-├── managers
-├── services
-├── utils
-└── models
+![Project Structure](docs/images/project-structure.png)
 
-tests
-config
-playwright.config.ts
-```
 ## Framework Architecture
 
-```text
-Tests
-   │
-   ▼
-Fixtures
-   │
-   ▼
-PageManager / ApiManager
-   │
-   ▼
-Pages / API Classes
-   │
-   ▼
-Services
-   │
-   ▼
-Playwright
-```
+The framework follows a layered architecture to keep UI automation, API automation, reusable services, and test logic cleanly separated.
+
+![Framework Architecture](docs/images/FarmeWork_Architecure.png)
+
+## Prerequisites
+
+- Node.js 20+
+- npm
+- Playwright browsers
+
 
 ## Installation
 
@@ -103,6 +95,11 @@ Run UI tests:
 ```bash
 npx playwright test tests/ui
 ```
+## Test Report
+
+The framework generates a detailed HTML report after every execution.
+
+![Playwright HTML Report](docs/images/playwright-report.png)
 
 ## Roadmap
 
@@ -126,6 +123,9 @@ GitHub: [Kaustav](https://github.com/kstvds24/)
 
 This project is licensed under the MIT License.
 
+---
+
+⭐ If you find this project useful, consider giving it a star on GitHub.
 
 
 
