@@ -8,14 +8,12 @@ export abstract class BasePage {
     protected readonly page: Page;
     protected readonly waits: WaitService
     protected readonly actions: ActionService;
-    protected readonly logger: LoggerService;
     protected readonly screenshot: ScreenshotService;
     constructor(page: Page) {
         this.page = page;
-        this.logger = new LoggerService()
         this.waits = new WaitService(page)
         this.screenshot = new ScreenshotService(page)
-        this.actions = new ActionService(page, this.logger, this.screenshot)
+        this.actions = new ActionService(this.screenshot)
 
     }
 

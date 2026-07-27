@@ -1,0 +1,9 @@
+====================
+2026-07-27T03:20:42.391Z
+DELETE  users/574
+--------------------
+RESPONSE
+Status :  204
+Duration : 499.47580000000005 ms
+Body :
+undefined

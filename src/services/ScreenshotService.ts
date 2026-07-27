@@ -1,6 +1,7 @@
 import { Page } from "@playwright/test";
 import * as fs from "fs";
 import * as path from "path";
+import { LoggerService } from "./LoggerService";
 
 export class ScreenshotService {
 
@@ -15,7 +16,7 @@ export class ScreenshotService {
             .toLowerCase();
     }
 
-    async capture(fileName: string): Promise<void> {
+    async capture(fileName: string): Promise<string> {
 
         try {
 
@@ -26,16 +27,18 @@ export class ScreenshotService {
             }
 
             const name = this.sanitize(fileName);
-
+            const screenshotPath =
+                path.join(directory, `${name}.png`);
             await this.page.screenshot({
-                path: path.join(directory, `${name}.png`),
+                path: screenshotPath,
                 fullPage: true
             });
+            return screenshotPath;
 
         } catch (error) {
 
-            console.warn("Screenshot capture failed.");
-
+            LoggerService.warn("Screenshot capture failed.");
+            throw error;
         }
 
     }

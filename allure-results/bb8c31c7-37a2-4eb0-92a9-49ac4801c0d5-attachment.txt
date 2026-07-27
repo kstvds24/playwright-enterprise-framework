@@ -1,0 +1,31 @@
+====================
+2026-07-25T08:34:52.732Z
+PUT  users/574
+Body :
+{
+  "name": "KaustavDev",
+  "job": "SDETEng"
+}
+--------------------
+RESPONSE
+Status :  200
+Duration : 546.1985999999999 ms
+Body :
+{
+  "name": "KaustavDev",
+  "job": "SDETEng",
+  "updatedAt": "2026-07-25T08:34:55.595Z",
+  "_meta": {
+    "powered_by": "ReqRes",
+    "docs_url": "https://app.reqres.in/documentation",
+    "upgrade_url": "https://app.reqres.in/upgrade",
+    "example_url": "https://app.reqres.in/examples/notes-app",
+    "variant": "v1_a",
+    "message": "Your data persists here. Add auth, logs, and custom schemas to build a real backend.",
+    "cta": {
+      "label": "See example app",
+      "url": "https://app.reqres.in/examples/notes-app"
+    },
+    "context": "legacy_success"
+  }
+}

@@ -24,7 +24,7 @@ export const test = base.extend<Fixtures>({
             }
 
         });
-        const apiClient = new ApiClient(apiContext,new LoggerService());
+        const apiClient = new ApiClient(apiContext);
         const apiManager = new ApiManager(apiClient);
 //console.log("Request Headers:", request().headers());
         await use(apiManager);
