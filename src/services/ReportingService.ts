@@ -1,10 +1,18 @@
-    import {
-        attachment,
-        attachmentPath,
-        ContentType,
-        step
-    } from "allure-js-commons";
+import {
+    attachment,
+    attachmentPath,
+    ContentType,
+    epic,
+    feature,
+    owner,
+    severity,
+    Severity,
+    step,
+    story,
+    tag
+} from "allure-js-commons";
 import { LoggerService } from "./LoggerService";
+import { AllureMetadata } from "../models/AllureMetadata";
 export class ReportingService {
 
     static async attachText(
@@ -72,4 +80,58 @@ export class ReportingService {
     ): Promise<T> {
         return await step(name, async () => action());
     }
+    //MetaData Section
+    public static async epic(name: string): Promise<void> {
+    await epic(name);
+}
+
+public static async feature(name: string): Promise<void> {
+    await feature(name);
+}
+
+public static async story(name: string): Promise<void> {
+    await story(name);
+}
+
+public static async owner(name: string): Promise<void> {
+    await owner(name);
+}
+
+public static async severity(level: Severity): Promise<void> {
+    await severity(level);
+}
+
+public static async tag(name: string): Promise<void> {
+    await tag(name);
+}
+public static async setAllureMetadata(
+    metadata: AllureMetadata
+): Promise<void> {
+
+    if (metadata.epic) {
+        await this.epic(metadata.epic);
+    }
+
+    if (metadata.feature) {
+        await this.feature(metadata.feature);
+    }
+
+    if (metadata.story) {
+        await this.story(metadata.story);
+    }
+
+    if (metadata.owner) {
+        await this.owner(metadata.owner);
+    }
+
+    if (metadata.severity) {
+        await this.severity(metadata.severity);
+    }
+
+    if (metadata.tags) {
+        for (const tag of metadata.tags) {
+            await this.tag(tag);
+        }
+    }
+}
 }

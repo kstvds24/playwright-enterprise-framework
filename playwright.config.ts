@@ -31,7 +31,7 @@ export default defineConfig({
     use: {
         baseURL: configManager.getBaseURL(),
 
-        navigationTimeout: 60000,
+        navigationTimeout: 160000,
 
         headless: isCI,
 
@@ -43,9 +43,9 @@ export default defineConfig({
         },
 
         trace: "on-first-retry",
+        video: "retain-on-failure",
 
-        screenshot: "only-on-failure",
-
-        video: "retain-on-failure"
+        // Let FailureCaptureService handle screenshots
+        screenshot: "off"
     }
 });

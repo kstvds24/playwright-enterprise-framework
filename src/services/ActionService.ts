@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator } from "@playwright/test";
 import { LoggerService } from "./LoggerService";
 import { ScreenshotService } from "./ScreenshotService";
 import { ReportingService } from "./ReportingService";
