@@ -3,13 +3,16 @@ import {
     APIResponse
 } from "@playwright/test";
 import { LoggerService } from "../services/LoggerService";
+import { ApiReportingService } from "../services/ApiReportingService";
 
 export class ApiClient {
 
     constructor(
         private readonly request: APIRequestContext,
-        private readonly logger: LoggerService
-    ) {}
+        
+    ) {
+        // noop
+    }
 
     async get<T>(url: string): Promise<T> {
         return this.execute<T>("GET",url,()=>this.request.get(url))
@@ -36,22 +39,20 @@ export class ApiClient {
         url: string,
         data: TRequest
     ): Promise<TResponse> {
-      
-        return this.execute<TResponse>("PATCH",url,()=>this.request.put(url,{data}),data)
+        return this.execute<TResponse>("PATCH", url, () => this.request.patch(url, { data }), data)
 
     }
 
-    async delete(url: string): Promise<void> {
-        this.logger.logRequest(this.delete.name.toUpperCase(), url)
-        const startTime = performance.now();
-        const response = await this.request.delete(url);
-        if (!response.ok()) {
-            throw new Error(
-                `Request failed with status ${response.status()}`
-            );
-        }
-        this.logger.logResponse(performance.now() - startTime, response.status())
-    }
+    public async delete(
+    url: string
+): Promise<void> {
+
+    await this.execute<void>(
+        "DELETE",
+        url,
+        () => this.request.delete(url)
+    );
+}
 
     private async parseResponse<T>(
         response: APIResponse
@@ -62,6 +63,9 @@ export class ApiClient {
                 `Request failed with status ${response.status()}`
             );
         }
+         if (response.status() === 204) {
+        return undefined as T;
+    }
 
         return response.json() as Promise<T>;
     }
@@ -73,19 +77,28 @@ private async execute<T>(
     body?: unknown
 ): Promise<T> {
 
-    this.logger.logRequest(method, url, body);
-
+    LoggerService.logRequest(method, url, body);
+    await ApiReportingService.attachRequest({
+    method,
+    url,
+    body
+});
     const startTime = performance.now();
 
     const response = await action();
 
     const parsedResponse = await this.parseResponse<T>(response);
 
-    this.logger.logResponse(
+    LoggerService.logResponse(
         performance.now() - startTime,
         response.status(),
         parsedResponse as Record<string, unknown>
     );
+    await ApiReportingService.attachResponse({
+    status: response.status(),
+    headers: response.headers(),
+    body: parsedResponse
+});
 
     return parsedResponse;
 }

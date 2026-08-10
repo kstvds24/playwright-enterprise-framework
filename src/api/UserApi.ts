@@ -7,37 +7,58 @@ import { UpdateUserResponse } from "../models/UpdateUserResponse";
 import { UpdateUserRequest } from "../models/UpdateUserRequest";
 import { PatchUserRequest } from "../models/PatchUserRequest";
 import { PatchUserResponse } from "../models/PatchUserResponse";
+import { ReportingService } from "../services/ReportingService";
 
 export class UserApi extends BaseApi {
 
     public async getUser(id: number): Promise<GetUserResponse> {
 
-        return await this.client.get<GetUserResponse>(`users/${id}`);
-       
+        return await ReportingService.step(
+            `Get User (ID: ${id})`,
+            async () => {
+                return await this.client.get<GetUserResponse>(`users/${id}`);
+            }
+        );
+
     }
     public async createUser(
         request: CreateUserRequest
     ): Promise<CreateUserResponse> {
 
-        return await this.client.post<CreateUserRequest,CreateUserResponse>(
-            "users",
-            request
+        return await ReportingService.step(
+            `Create User`,
+            async () => {
+                return await this.client.post<CreateUserRequest, CreateUserResponse>(
+                    "users",
+                    request
+                );
+            }
         );
-
-        
     }
     public async updateUser(id: number, request: UpdateUserRequest
     ): Promise<UpdateUserResponse> {
-        return await this.client.put<UpdateUserRequest,UpdateUserResponse>(`users/${id}`, request)
-
+        return await ReportingService.step(
+            `Update User (ID: ${id})`,
+            async () => {
+                return await this.client.put<UpdateUserRequest, UpdateUserResponse>(`users/${id}`, request)
+            }
+        );
     }
     public async patchUser(id: number, request: PatchUserRequest
     ): Promise<PatchUserResponse> {
-        return await this.client.patch<PatchUserRequest,PatchUserResponse>(`users/${id}`, request)
-
+        return await ReportingService.step(
+            `Patch User (ID: ${id})`,
+            async () => {
+                return await this.client.patch<PatchUserRequest, PatchUserResponse>(`users/${id}`, request)
+            }
+        );
     }
     public async deleteUser(id: number): Promise<void> {
-        await this.client.delete(`users/${id}`)
-
+        return await ReportingService.step(
+            `Delete User (ID: ${id})`,
+            async () => {
+                await this.client.delete(`users/${id}`)
+            }
+        );
     }
 }
