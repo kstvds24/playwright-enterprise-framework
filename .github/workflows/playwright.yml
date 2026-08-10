@@ -12,12 +12,17 @@ on:
       - develop
       - main
 
+permissions:
+  contents: read
+
 jobs:
   ui-api-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
     env:
       ENV: qa
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -38,6 +43,10 @@ jobs:
         run: npx playwright test
         env:
           ENV: ${{ env.ENV }}
+
+      - name: Generate Allure Report
+        if: always()
+        run: npm run allure:generate
 
       - name: Upload Playwright Report
         if: always()
@@ -61,3 +70,44 @@ jobs:
         with:
           name: allure-results
           path: allure-results/
+          retention-days: 30
+
+      - name: Upload Allure Report
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 30
+
+  deploy-allure-report:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    needs: ui-api-tests
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Download Allure Report
+        uses: actions/download-artifact@v5
+        with:
+          name: allure-report
+          path: allure-report
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: allure-report
+
+      - name: Deploy Allure Report
+        id: deployment
+        uses: actions/deploy-pages@v4
