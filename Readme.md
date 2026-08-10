@@ -103,6 +103,12 @@ The framework generates a detailed HTML report after every execution.
 
 ![Playwright HTML Report](docs/images/playwright-report.png)
 
+## 📊 Test Report
+
+View the latest automated test execution:
+
+👉 [Live Allure Report](https://kstvds24.github.io/playwright-enterprise-framework/)
+
 ## Roadmap
 
 - [ ] Authentication Manager
