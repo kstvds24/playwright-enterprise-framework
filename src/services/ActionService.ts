@@ -1,10 +1,11 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator } from "@playwright/test";
 import { LoggerService } from "./LoggerService";
 import { ScreenshotService } from "./ScreenshotService";
+import { ReportingService } from "./ReportingService";
 
 export class ActionService {
 
-    constructor(private readonly page: Page, private readonly logger: LoggerService, private readonly screenshot: ScreenshotService) {
+    constructor( private readonly screenshot: ScreenshotService) {
 
     }
     async click(locator: Locator, displayName?: string): Promise<void> {
@@ -21,19 +22,40 @@ export class ActionService {
         );
     }
     private async executeAction(actionName: string, action: () => Promise<void>) {
-        this.logger.info(`${actionName}`);
+        LoggerService.info(`${actionName}`);
         try {
             await action();
-            this.logger.success(`${actionName} successful`);
+           LoggerService.success(`${actionName} successful`);
         }
         catch (error) {
 
-            this.logger.error(`${actionName} failed`);
+    LoggerService.error(`${actionName} failed`);
 
+    try {
+
+        const screenshotPath =
             await this.screenshot.capture(actionName);
 
-            throw error;
-        }
+        await ReportingService.attachScreenshot(
+            actionName,
+            screenshotPath
+        );
+
+        await ReportingService.attachText(
+            "Error Details",
+            String(error)
+        );
+
+    } catch (attachmentError) {
+
+        LoggerService.warn(
+            "Failed to capture or attach failure artifacts."
+        );
+
+    }
+
+    throw error;
+}
     }
 
 }

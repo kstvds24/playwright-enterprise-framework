@@ -3,7 +3,7 @@ import { PageManager } from "../managers/PageManager";
 import { ApiManager } from "../api/ApiManager";
 import { ApiClient } from "../api/ApiClient";
 import { configManager } from "../core/Bootstrap";
-import { LoggerService } from "../services/LoggerService";
+import { AfterEachHook } from "../hooks/AfterEachHook";
 
 type Fixtures = {
     pageManager: PageManager;
@@ -11,9 +11,13 @@ type Fixtures = {
 };
 
 export const test = base.extend<Fixtures>({
-    pageManager: async ({ page }, use) => {
+    pageManager: async ({ page }, use, testInfo) => {
         const pageManager = new PageManager(page);
         await use(pageManager);
+        await AfterEachHook.execute(
+            page,
+            testInfo
+        )
     },
 
     apiManager: async ({ }, use) => {
@@ -24,9 +28,9 @@ export const test = base.extend<Fixtures>({
             }
 
         });
-        const apiClient = new ApiClient(apiContext,new LoggerService());
+        const apiClient = new ApiClient(apiContext);
         const apiManager = new ApiManager(apiClient);
-//console.log("Request Headers:", request().headers());
+        //console.log("Request Headers:", request().headers());
         await use(apiManager);
 
         await apiContext.dispose();

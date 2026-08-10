@@ -1,28 +1,28 @@
 export class LoggerService {
 
-    info(message: string): void {
+    static info(message: string): void {
         console.log(
             `[${this.getTimestamp()}] [INFO] ${message}`
         );
     }
-    warn(message: string): void {
+   static  warn(message: string): void {
         console.warn(
             `[${this.getTimestamp()}] [WARN] ${message}`
         );
     }
 
-    error(message: string): void {
+   static  error(message: string): void {
         console.error(
             `[${this.getTimestamp()}] [ERROR] ${message}`
         );
     }
 
-    success(message: string): void {
+   static  success(message: string): void {
         console.log(
             `[${this.getTimestamp()}] [PASS] ${message}`
         );
     }
-    logRequest(methodName: string, url: string, body?: any
+   static  logRequest(methodName: string, url: string, body?: any
     ) {
 
         console.log(`=`.repeat(20))
@@ -38,7 +38,7 @@ export class LoggerService {
 
 
     }
-    logResponse(
+   static  logResponse(
         duration: number, status: number, body?: any
     ) {
         console.log(`-`.repeat(20))
@@ -51,7 +51,7 @@ export class LoggerService {
         );
 
     }
-    private getTimestamp(): string {
+    private static getTimestamp(): string {
         return new Date().toISOString();
     }
 
