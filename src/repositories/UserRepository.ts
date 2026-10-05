@@ -1,10 +1,10 @@
 import path from "node:path";
 
 import { JsonReader } from "../utils/JsonReader";
-import { User } from "../models/User";
+import { LoginUser } from "../models/LoginUser";
 
 
-type Users = Record<string, User>;
+type Users = Record<string, LoginUser>;
 
 
 export class UserRepository {
@@ -26,7 +26,7 @@ export class UserRepository {
 
     }
 
-    public getUser(name: string): User {
+    public getUser(name: string): LoginUser {
 
         const user = this.users[name];
 
@@ -36,11 +36,11 @@ export class UserRepository {
 
         return user;
     }
-    public getAdmin(): User {
+    public getAdmin(): LoginUser {
         return this.getUser("admin");
     }
 
-    public getInvalidUser(): User {
+    public getInvalidUser(): LoginUser {
         return this.getUser("invalidUser");
     }
 

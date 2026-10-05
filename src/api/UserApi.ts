@@ -2,7 +2,6 @@ import { BaseApi } from "./BaseApi";
 import { GetUserResponse } from "../models/GetUserResponse";
 import { CreateUserRequest } from "../models/CreateUserRequest";
 import { CreateUserResponse } from "../models/CreateUserResponse";
-import { expect } from "@playwright/test";
 import { UpdateUserResponse } from "../models/UpdateUserResponse";
 import { UpdateUserRequest } from "../models/UpdateUserRequest";
 import { PatchUserRequest } from "../models/PatchUserRequest";
